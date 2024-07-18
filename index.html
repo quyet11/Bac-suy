@@ -124,6 +124,7 @@
     const buttonContainer = document.getElementById('buttonContainer');
     const videoContainer = document.getElementById('videoContainer');
     const videoElement = document.getElementById('videoElement');
+    const heading = document.querySelector('h1'); // Lấy thẻ <h1>
 
     noButton.addEventListener('mouseover', () => {
         const randomX = Math.floor(Math.random() * (window.innerWidth - noButton.clientWidth));
@@ -136,6 +137,7 @@
         buttonContainer.style.display = 'none';
         videoContainer.style.display = 'block';
         videoElement.play();
+        heading.textContent = 'Trái tim anh rỉ máu chỉ vì không có Kim .... để khâu :(';
     });
 </script>
 </body>
