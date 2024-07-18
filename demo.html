@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trang web vui nhộn với hiệu ứng mưa</title>
+    <title>Suy dưới mưa</title>
     <link rel="stylesheet" href="css/style.css">
     <style>
         body {
@@ -15,11 +15,13 @@
             height: 100vh;
             margin: 0;
             font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+            overflow: hidden;
         }
         h1 {
             font-size: 3em;
             color: #fff;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            text-align: center;
         }
         button {
             font-size: 1.5em;
@@ -56,10 +58,39 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            z-index: -1;
+            z-index: -1; /* Đảm bảo background ở phía sau */
         }
         .plane {
-            display: none;
+            display: none; /* Ẩn plane ban đầu */
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+            button {
+                font-size: 1.2em;
+                padding: 8px 16px;
+            }
+            #videoElement {
+                width: 90%;
+                height: auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5em;
+            }
+            button {
+                font-size: 1em;
+                padding: 6px 12px;
+            }
+            #videoElement {
+                width: 100%;
+                height: auto;
+            }
         }
     </style>
 </head>
@@ -73,7 +104,7 @@
     </div>
 </div>
 
-<h1>Bắc có suy không??</h1>
+<h1>Bắc có SUY không?</h1>
 <div id="buttonContainer">
     <button id="yesButton">Yes</button>
     <button id="noButton">No</button>
