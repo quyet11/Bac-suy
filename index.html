@@ -22,6 +22,11 @@
             color: #fff;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
             text-align: center;
+            position: fixed; /* Đặt vị trí cố định */
+            top: 5%; /* Khoảng cách từ trên cùng */
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2; /* Đảm bảo văn bản nằm trên video */
         }
         button {
             font-size: 1.5em;
@@ -50,8 +55,12 @@
             transform: scale(1.1);
         }
         #videoContainer {
-            margin-top: 20px;
+            position: fixed; /* Đảm bảo video không làm che mất nội dung khác */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); /* Đặt video vào giữa màn hình */
             display: none;
+            z-index: 1; /* Đặt video dưới văn bản */
         }
         #wrap-texture {
             position: absolute;
