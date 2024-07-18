@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang web vui nhộn với hiệu ứng mưa</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+        }
+        h1 {
+            font-size: 3em;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        button {
+            font-size: 1.5em;
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        #yesButton {
+            background-color: #4CAF50;
+            color: white;
+        }
+        #yesButton:hover {
+            background-color: #45a049;
+            transform: scale(1.1);
+        }
+        #noButton {
+            background-color: #f44336;
+            color: white;
+            position: absolute;
+        }
+        #noButton:hover {
+            background-color: #e53935;
+            transform: scale(1.1);
+        }
+        #videoContainer {
+            margin-top: 20px;
+            display: none;
+        }
+        #wrap-texture {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+        .plane {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+<div id="wrap-texture">
+    <div id="canvas"></div>
+    <div class="plane">
+        <img data-sampler="dispImage" id="texture" src="images/photo-1603287349388-af20942f95d0.jpg"
+             crossorigin="anonymous" />
+    </div>
+</div>
+
+<h1>Bắc có suy không??</h1>
+<div id="buttonContainer">
+    <button id="yesButton">Yes</button>
+    <button id="noButton">No</button>
+</div>
+<div id="videoContainer">
+    <video id="videoElement" width="560" height="315" controls loop>
+        <source src=video/b.mp4 type="video/mp4">
+        Trình duyệt của bạn không hỗ trợ video tag.
+    </video>
+</div>
+
+<script src="js/curtains.min.js"></script>
+<script src="js/script.js"></script>
+<script>
+    const noButton = document.getElementById('noButton');
+    const yesButton = document.getElementById('yesButton');
+    const buttonContainer = document.getElementById('buttonContainer');
+    const videoContainer = document.getElementById('videoContainer');
+    const videoElement = document.getElementById('videoElement');
+
+    noButton.addEventListener('mouseover', () => {
+        const randomX = Math.floor(Math.random() * (window.innerWidth - noButton.clientWidth));
+        const randomY = Math.floor(Math.random() * (window.innerHeight - noButton.clientHeight));
+        noButton.style.left = randomX + 'px';
+        noButton.style.top = randomY + 'px';
+    });
+
+    yesButton.addEventListener('click', () => {
+        buttonContainer.style.display = 'none';
+        videoContainer.style.display = 'block';
+        videoElement.play();
+    });
+</script>
+</body>
+
+</html>
