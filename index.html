@@ -17,17 +17,19 @@
             font-family: 'Comic Sans MS', 'Comic Sans', cursive;
             overflow: hidden;
         }
+
         h1 {
             font-size: 3em;
             color: #fff;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
             text-align: center;
-            position: fixed; /* Đặt vị trí cố định */
-            top: 3%; /* Khoảng cách từ trên cùng */
+            position: fixed;
+            top: 3%;
             left: 50%;
             transform: translateX(-50%);
-            z-index: 2; /* Đảm bảo văn bản nằm trên video */
+            z-index: 2;
         }
+
         button {
             font-size: 1.5em;
             padding: 10px 20px;
@@ -37,54 +39,140 @@
             cursor: pointer;
             transition: transform 0.3s;
         }
+
         #yesButton {
             background-color: #4CAF50;
             color: white;
         }
+
         #yesButton:hover {
             background-color: #45a049;
             transform: scale(1.1);
         }
+
         #noButton {
             background-color: #f44336;
             color: white;
             position: absolute;
         }
+
         #noButton:hover {
             background-color: #e53935;
             transform: scale(1.1);
         }
+
         #videoContainer {
-            position: fixed; /* Đảm bảo video không làm che mất nội dung khác */
+            position: fixed;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%); /* Đặt video vào giữa màn hình */
+            transform: translate(-50%, -50%);
             display: none;
-            z-index: 1; /* Đặt video dưới văn bản */
+            z-index: 1;
+            perspective: 1000px; /* Thêm để tạo hiệu ứng 3D */
         }
+        .video-wrapper {
+            width: 560px;
+            height: 315px;
+            transform-style: preserve-3d;
+            transition: transform 1s;
+        }
+        .rotate-in {
+            transform: rotateY(0deg);
+        }
+
+        .rotate-out {
+            transform: rotateY(90deg);
+        }
+
+        .video-wrapper.next {
+            transform: rotateY(-90deg);
+        }
+
+        @media (max-width: 768px) {
+            .video-wrapper {
+                width: 80%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .video-wrapper {
+                width: 90%;
+            }
+        }
+
+
+        @keyframes slideIn {
+            from {
+                transform: translate(-150%, -50%);
+            }
+            to {
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        @keyframes slideOut {
+            from {
+                transform: translate(-50%, -50%);
+            }
+            to {
+                transform: translate(150%, -50%);
+            }
+        }
+
         #wrap-texture {
             position: absolute;
             width: 100%;
             height: 100%;
             overflow: hidden;
-            z-index: -1; /* Đảm bảo background ở phía sau */
+            z-index: -1;
         }
+
         .plane {
-            display: none; /* Ẩn plane ban đầu */
+            display: none;
         }
 
+        .icon-container {
+            position: absolute;
+            top: 50%;
+            right: 1cm;
+            transform: translateY(-50%);
+            text-align: center;
+            cursor: pointer;
+            z-index: 3;
+            display: none;
+        }
 
-        /* Media Queries */
+        .icon-container.left {
+            right: auto;
+            left: 1cm;
+        }
+
+        .icon-container .icon {
+            font-size: 2em;
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .icon-container p {
+            margin: 5px 0 0;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
         @media (max-width: 768px) {
             h1 {
                 font-size: 2em;
             }
+
             button {
                 font-size: 1.2em;
                 padding: 8px 16px;
             }
+
             #videoElement {
-                width: 80%; /* Điều chỉnh kích thước video cho thiết bị nhỏ hơn */
+                width: 80%;
             }
         }
 
@@ -92,12 +180,14 @@
             h1 {
                 font-size: 1.5em;
             }
+
             button {
                 font-size: 1em;
                 padding: 6px 12px;
             }
+
             #videoElement {
-                width: 90%; /* Điều chỉnh kích thước video cho thiết bị nhỏ nhất */
+                width: 90%;
             }
         }
     </style>
@@ -107,8 +197,7 @@
 <div id="wrap-texture">
     <div id="canvas"></div>
     <div class="plane">
-        <img data-sampler="dispImage" id="texture" src="images/photo-1603287349388-af20942f95d0.jpg"
-             crossorigin="anonymous" />
+        <img data-sampler="dispImage" id="texture" src="images/photo-1603287349388-af20942f95d0.jpg" crossorigin="anonymous" />
     </div>
 </div>
 
@@ -118,12 +207,26 @@
     <button id="noButton">No</button>
 </div>
 <div id="videoContainer">
-    <video id="videoElement" width="560" height="315" controls loop playsinline>
-        <source src=video/b.mp4 type="video/mp4">
-        Trình duyệt của bạn không hỗ trợ video tag.
-    </video>
+    <div class="video-wrapper rotate-in">
+        <video id="videoElement" width="560" height="315" controls loop playsinline>
+            <source src="video/c.mp4" type="video/mp4">
+            Trình duyệt của bạn không hỗ trợ video tag.
+        </video>
+    </div>
 </div>
 
+<audio id="audioElement" loop>
+    <source src="video/1.mp3" type="audio/mp3">
+    Trình duyệt của bạn không hỗ trợ audio tag.
+</audio>
+<audio id="audioElement2" loop>
+    <source src="video/2.mp3" type="audio/mp3">
+    Trình duyệt của bạn không hỗ trợ audio tag.
+</audio>
+<div class="icon-container" id="nextIcon">
+    <div class="icon">&gt;</div>
+    <p>Một chút hồi <br> ức nhé <3</p>
+</div>
 <script src="js/curtains.min.js"></script>
 <script src="js/script.js"></script>
 <script>
@@ -131,8 +234,12 @@
     const yesButton = document.getElementById('yesButton');
     const buttonContainer = document.getElementById('buttonContainer');
     const videoContainer = document.getElementById('videoContainer');
+    const videoWrapper = document.querySelector('.video-wrapper');
     const videoElement = document.getElementById('videoElement');
-    const heading = document.querySelector('h1'); // Lấy thẻ <h1>
+    const audioElement = document.getElementById('audioElement');
+    const audioElement2 = document.getElementById('audioElement2');
+    const heading = document.querySelector('h1');
+    const nextIcon = document.getElementById('nextIcon');
 
     noButton.addEventListener('mouseover', () => {
         const randomX = Math.floor(Math.random() * (window.innerWidth - noButton.clientWidth));
@@ -144,10 +251,54 @@
     yesButton.addEventListener('click', () => {
         buttonContainer.style.display = 'none';
         videoContainer.style.display = 'block';
+        videoWrapper.classList.remove('rotate-out');
+        videoWrapper.classList.add('rotate-in');
         videoElement.play();
+        audioElement.play();
         heading.textContent = 'Trái tim anh rỉ máu chỉ vì không có Kim .... để khâu :(';
+        nextIcon.style.display = 'block';
+    });
+
+    nextIcon.addEventListener('click', () => {
+        if (!nextIcon.classList.contains('left')) {
+            audioElement.pause();
+            audioElement.currentTime = 0;
+            videoWrapper.classList.remove('rotate-in');
+            videoWrapper.classList.add('rotate-out');
+            setTimeout(() => {
+                videoElement.src = 'video/d.mp4';
+                videoElement.play();
+                audioElement2.play();
+                heading.textContent = 'Được đứng bên em anh hạnh phúc tim loạn nhịp tung bay <3';
+                nextIcon.classList.add('left');
+                nextIcon.querySelector('.icon').textContent = '<';
+                nextIcon.querySelector('p').innerHTML = 'Suy <br> tiếp'; // Thay đổi nội dung văn bản với dòng xuống
+                videoWrapper.classList.remove('rotate-out');
+                videoWrapper.classList.add('rotate-in');
+                heartShape.style.clipPath = 'path("M50,15 L85,15 Q100,30 85,55 L50,100 L15,55 Q0,30 15,15 Q30,0 50,15 Z")'; // Hình trái tim cho video thứ hai
+            }, 1000); // Thay đổi video sau khi hiệu ứng rotate-out kết thúc
+        } else {
+            audioElement2.pause();
+            audioElement2.currentTime = 0;
+            videoWrapper.classList.remove('rotate-in');
+            videoWrapper.classList.add('rotate-out');
+            setTimeout(() => {
+                videoElement.src = 'video/c.mp4';
+                videoElement.play();
+                audioElement.play();
+                heading.textContent = 'Trái tim anh rỉ máu chỉ vì không có Kim .... để khâu :(';
+                nextIcon.classList.remove('left');
+                nextIcon.querySelector('.icon').textContent = '>';
+                nextIcon.querySelector('p').innerHTML = 'Một chút hồi<br>ức nhé'; // Thay đổi nội dung văn bản với dòng xuống
+                videoWrapper.classList.remove('rotate-out');
+                videoWrapper.classList.add('rotate-in');
+                heartShape.style.clipPath = 'none'; // Xóa hình trái tim cho video đầu tiên
+            }, 1000); // Thay đổi video sau khi hiệu ứng rotate-out kết thúc
+        }
     });
 </script>
+
+
 
 </body>
 
