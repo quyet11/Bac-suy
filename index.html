@@ -158,7 +158,7 @@
     <button id="noButton">No</button>
 </div>
 <div id="videoContainer">
-    <video id="videoElement" width="560" height="315" controls loop playsinline>
+    <video id="videoElement" width="560" height="315" controls loop playsinline muted>
         <source src="video/c.mp4" type="video/mp4">
         Trình duyệt của bạn không hỗ trợ video tag.
     </video>
@@ -209,6 +209,7 @@
             audioElement.pause();
             audioElement.currentTime = 0;
             videoElement.src = 'video/d.mp4';
+            videoElement.muted = true; // Tắt âm thanh video d.mp4
             videoElement.play();
             audioElement2.play();
             heading.textContent = 'Được đứng bên em anh hạnh phúc tim loạn nhịp tung bay ';
@@ -219,6 +220,7 @@
             audioElement2.pause();
             audioElement2.currentTime = 0;
             videoElement.src = 'video/c.mp4';
+            videoElement.muted = true; // Tắt âm thanh video c.mp4
             videoElement.play();
             audioElement.play();
             heading.textContent = 'Trái tim anh rỉ máu chỉ vì không có Kim .... để khâu :(';
@@ -227,6 +229,7 @@
             nextIcon.querySelector('p').innerHTML = 'chút hồi <br> ức nhé <3'; // Thay đổi nội dung văn bản với dòng xuống
         }
     });
+
 </script>
 
 </body>
